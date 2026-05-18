@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>English Project</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="m-0 h-screen w-screen overflow-hidden">
+
+    <div id="fade-overlay"></div>
+
+    <div id="splash" class="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center cursor-pointer select-none" onclick="enterSite()">
+        <div class="mt-8 text-white/60 text-sm">click to enter fullscreen</div>
+        <div class="mt-3 text-white/40 text-sm">
+            source code is here <a href="https://github.com/play-station451/english-project" class="underline hover:text-white/60" onclick="event.stopPropagation()" target="_blank">https://github.com/play-station451/english-project</a>
+        </div>
+    </div>
+
+    <div id="main" class="hidden h-screen w-screen relative bg-black" onclick="startPresentation()">
+        <div id="bg-container" class="absolute inset-0 z-0"></div>
+        <div class="absolute inset-0" style="z-index:1; background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.55) 100%);"></div>
+        <div class="absolute inset-0" style="z-index:1; background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 25%, transparent 65%, rgba(0,0,0,0.7) 100%);"></div>
+        <div class="absolute top-0 left-0 p-8" style="z-index:2;">
+            <h1 class="text-white text-4xl font-semibold tracking-wide" style="font-family:'Open Sans',sans-serif; text-shadow: 0 2px 12px rgba(0,0,0,0.8);">Connecting</h1>
+        </div>
+        <div class="absolute bottom-0 left-0 right-0" style="z-index:2; background: rgba(0,0,0,0.82); border-top: 1px solid rgba(255,255,255,0.07);">
+            <div class="flex items-center justify-between px-8 py-5 gap-6">
+                <div class="flex items-center gap-2.5 flex-shrink-0">
+                    <div class="spinner"></div>
+                    <span class="text-white/90 text-base font-light tracking-wide">Establishing connection</span>
+                </div>
+                <span class="tip-ticker text-white/65 text-base font-light tracking-wide text-right" id="tip-text">Pink candy goes boom</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="presentation">
+        <video id="presentation-video" autoplay muted playsinline>
+            <source src="assets/videos/st1.mp4" type="video/mp4">
+        </video>
+        <div class="presentation-overlay">
+            <div class="slide-panel">
+                <div class="scp-row">
+                    <div class="scp-img-wrap"><img src="assets/imgs/scp-207.png" alt="SCP-207"></div>
+                    <div class="scp-info">
+                        <span class="scp-name">SCP-207</span>
+                        <span class="scp-desc">Speed for health. Can be stacked up to 4 times</span>
+                    </div>
+                </div>
+                <div class="scp-row">
+                    <div class="scp-img-wrap"><img src="assets/imgs/anti-207.png" alt="Anti-SCP-207"></div>
+                    <div class="scp-info">
+                        <span class="scp-name">Anti SCP-207</span>
+                        <span class="scp-desc">Does the opposite of SCP-207. If used with SCP-207 they will explode.</span>
+                    </div>
+                </div>
+                <div class="scp-row">
+                    <div class="scp-img-wrap"><img src="assets/imgs/scp-1344.png" alt="SCP-1344"></div>
+                    <div class="scp-info">
+                        <span class="scp-name">SCP-1344</span>
+                        <span class="scp-desc">Ingame ESP</span>
+                    </div>
+                </div>
+                <div class="scp-row">
+                    <div class="scp-img-wrap"><img src="assets/imgs/scp-268.png" alt="SCP-268"></div>
+                    <div class="scp-info">
+                        <span class="scp-name">SCP-268</span>
+                        <span class="scp-desc">Go Invisable for 15 seconds</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="kavada-view">
+        <video id="kavada-video" autoplay muted playsinline loop>
+            <source src="assets/videos/kadava.mp4" type="video/mp4">
+        </video>
+
+        <div class="kavada-overlay">
+            <div class="kavada-panel">
+                <div class="kavada-header">
+                    <h1 class="kavada-name">Kadava</h1>
+                    <div class="kavada-subtitle">Owns kadava's calamity</div>
+                </div>
+
+                <div class="kav-stats-panel">
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">Movement</span>
+                            <span class="kav-stat-desc">decent movement but not good juking</span>
+                        </div>
+                        <span class="kav-stat-score">7<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">Communication</span>
+                            <span class="kav-stat-desc">self explanatory</span>
+                        </div>
+                        <span class="kav-stat-score">8<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as SCP vs Humans</span>
+                            <span class="kav-stat-desc">mains doctor I think</span>
+                        </div>
+                        <span class="kav-stat-score">7<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as Human vs SCP</span>
+                            <span class="kav-stat-desc">dies a lot but has gotten a lot of good plays</span>
+                        </div>
+                        <span class="kav-stat-score">8<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as Human vs Human</span>
+                            <span class="kav-stat-desc">bad aim???</span>
+                        </div>
+                        <span class="kav-stat-score">5<span class="kav-stat-max">/10</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="infamous-invictis-view">
+        <video id="infamous-invictis-video" autoplay muted playsinline loop>
+            <source src="assets/videos/infamous-invictis.mp4" type="video/mp4">
+        </video>
+
+        <div class="kavada-overlay">
+            <div class="kavada-panel">
+                <div class="kavada-header">
+                    <h1 class="kavada-name">Infamous Invictis</h1>
+                    <div class="kavada-subtitle">Owns nothing</div>
+                </div>
+
+                <div class="kav-stats-panel">
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">Movement</span>
+                            <span class="kav-stat-desc">decent movement but not good juking</span>
+                        </div>
+                        <span class="kav-stat-score">7<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">Communication</span>
+                            <span class="kav-stat-desc">self explanatory</span>
+                        </div>
+                        <span class="kav-stat-score">8<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as SCP vs Humans</span>
+                            <span class="kav-stat-desc">mains doctor I think</span>
+                        </div>
+                        <span class="kav-stat-score">7<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as Human vs SCP</span>
+                            <span class="kav-stat-desc">dies a lot but has gotten a lot of good plays</span>
+                        </div>
+                        <span class="kav-stat-score">8<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as Human vs Human</span>
+                            <span class="kav-stat-desc">bad aim???</span>
+                        </div>
+                        <span class="kav-stat-score">5<span class="kav-stat-max">/10</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="taviogu-view">
+        <video id="taviogu-video" autoplay muted playsinline loop>
+            <source src="assets/videos/taviogu.mp4" type="video/mp4">
+        </video>
+
+        <div class="kavada-overlay">
+            <div class="kavada-panel">
+                <div class="kavada-header">
+                    <h1 class="kavada-name">Taviogu</h1>
+                    <div class="kavada-subtitle">Owns nothing</div>
+                </div>
+
+                <div class="kav-stats-panel">
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">Movement</span>
+                            <span class="kav-stat-desc">decent movement but not good juking</span>
+                        </div>
+                        <span class="kav-stat-score">7<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">Communication</span>
+                            <span class="kav-stat-desc">self explanatory</span>
+                        </div>
+                        <span class="kav-stat-score">8<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as SCP vs Humans</span>
+                            <span class="kav-stat-desc">mains doctor I think</span>
+                        </div>
+                        <span class="kav-stat-score">7<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as Human vs SCP</span>
+                            <span class="kav-stat-desc">dies a lot but has gotten a lot of good plays</span>
+                        </div>
+                        <span class="kav-stat-score">8<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as Human vs Human</span>
+                            <span class="kav-stat-desc">bad aim???</span>
+                        </div>
+                        <span class="kav-stat-score">5<span class="kav-stat-max">/10</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="silent-togi-view">
+        <video id="silent-togi-video" autoplay muted playsinline loop>
+            <source src="assets/videos/silent-togi.mp4" type="video/mp4">
+        </video>
+
+        <div class="kavada-overlay">
+            <div class="kavada-panel">
+                <div class="kavada-header">
+                    <h1 class="kavada-name">Silent-Togi</h1>
+                    <div class="kavada-subtitle">Owns nothing</div>
+                </div>
+
+                <div class="kav-stats-panel">
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">Movement</span>
+                            <span class="kav-stat-desc">decent movement but not good juking</span>
+                        </div>
+                        <span class="kav-stat-score">7<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">Communication</span>
+                            <span class="kav-stat-desc">self explanatory</span>
+                        </div>
+                        <span class="kav-stat-score">8<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as SCP vs Humans</span>
+                            <span class="kav-stat-desc">mains doctor I think</span>
+                        </div>
+                        <span class="kav-stat-score">7<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as Human vs SCP</span>
+                            <span class="kav-stat-desc">dies a lot but has gotten a lot of good plays</span>
+                        </div>
+                        <span class="kav-stat-score">8<span class="kav-stat-max">/10</span></span>
+                    </div>
+                    <div class="kav-stat-row">
+                        <div class="kav-stat-info">
+                            <span class="kav-stat-name">PvP as Human vs Human</span>
+                            <span class="kav-stat-desc">bad aim???</span>
+                        </div>
+                        <span class="kav-stat-score">5<span class="kav-stat-max">/10</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="bgmusic" loop>
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
